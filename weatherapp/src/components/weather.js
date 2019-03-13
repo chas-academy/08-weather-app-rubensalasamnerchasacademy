@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Navbar from './navbar';
 
 class weather extends Component {
 
@@ -149,6 +150,7 @@ class weather extends Component {
         )
         return (
             <div>
+                <Navbar></Navbar>
                 <form onSubmit={this.startSearch}>
                     <input name="search" type="text" ></input>
                     <button type="submit">Search</button>
