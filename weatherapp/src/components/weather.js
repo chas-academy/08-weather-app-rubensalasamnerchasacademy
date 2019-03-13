@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './navbar';
+import Icons from './icons';
 
 class weather extends Component {
 
