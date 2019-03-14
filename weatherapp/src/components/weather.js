@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Navbar from './navbar';
 import Icons from './icons';
+import Dailyweather from './dailyweather';
 
 class weather extends Component {
 
@@ -157,7 +158,7 @@ class weather extends Component {
                     <button type="submit">Search</button>
                 </form>
                 
-                
+                <Dailyweather hourly={this.state}></Dailyweather>
                 <div className="container"><div className="row">{weatherData}</div></div>
             </div>
         )
