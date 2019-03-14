@@ -14,6 +14,7 @@ class weather extends Component {
         geohourly: [],
         secretKey: '1a2dd2744632799c9381abfafde3d1bc',
         locationsummary: [],
+        tempconverter: false,
     }
 
     componentDidMount() {
@@ -76,6 +77,12 @@ class weather extends Component {
         
         }) 
       
+    }
+
+    convert = () => {
+        this.setState({
+            tempconverter: !this.state.tempconverter
+        })
     }
     render() {
         const weatherData = this.state.daily.length ? (
