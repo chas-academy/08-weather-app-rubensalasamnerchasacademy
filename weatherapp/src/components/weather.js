@@ -164,7 +164,7 @@ class weather extends Component {
                     <input name="search" type="text" ></input>
                     <button type="submit">Search</button>
                 </form>
-                
+                <button onClick={this.convert}>convert temp</button>
                 <Dailyweather hourly={this.state}></Dailyweather>
                 <div className="container"><div className="row">{weatherData}</div></div>
             </div>
