@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import Navbar from './navbar';
 import Icons from './icons';
 import Dailyweather from './dailyweather';
+import Mainweather from './mainweather';
 
-class weather extends Component {
+export default class weather extends Component {
 
     state = {
         geodaily: [],
@@ -15,6 +16,20 @@ class weather extends Component {
         secretKey: '1a2dd2744632799c9381abfafde3d1bc',
         locationsummary: [],
         tempconverter: false,
+        location: '',
+        summary: '',
+        icon: '',
+        temp: '',
+        daily: [],
+        hourly: [],
+        currentRadar: '',
+        threehours: [],
+        locationsummary: [],
+        searchsummary: [],
+        tempconverter: 'Fahrenheit',
+        celsius: false,
+        searchstring: '',
+        
     }
 
     componentDidMount() {
@@ -164,6 +179,7 @@ class weather extends Component {
                     <input name="search" type="text" ></input>
                     <button type="submit">Search</button>
                 </form>
+                <Mainweather daily={this.state.searchsummary} geodaily={this.state.locationsummary}></Mainweather>
                 <button onClick={this.convert}>convert temp</button>
                 <Dailyweather hourly={this.state}></Dailyweather>
                 <div className="container"><div className="row">{weatherData}</div></div>
