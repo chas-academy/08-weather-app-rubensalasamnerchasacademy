@@ -150,8 +150,6 @@ a#outertab-tab-SavedForecasts {
 }
 
 @media only screen and (max-width: 956px) {
-  /* STYLES HERE for BROWSER WINDOWS with a max-width of 480px. 
-     This will work on desktops when the window is narrowed.  */
   .form-control {
   width: 100%;
   background-color: #0000;
@@ -178,6 +176,10 @@ a#outertab-tab-SavedForecasts {
 
 @media only screen and (max-width: 550px) {
   a#outertab-tab-Graph {
+    display: none;
+  }
+
+  div#outertab-tabpane-Graph {
     display: none;
   }
 }

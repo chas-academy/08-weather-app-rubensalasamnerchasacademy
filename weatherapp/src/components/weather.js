@@ -194,13 +194,11 @@ export default class weather extends Component {
             this.state.daily.map(day => {
                 return (
                     <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        <div className="box-part text-center">
+                        <div className="box-part text-center text-light">
                             <i className="fa fa-3x" aria-hidden="true"><Icons icon={day.icon}></Icons></i>
                             <div className="title">
                             </div>
                              <div className="text">
-                                <Icons icon={day.icon}></Icons>
-                                <p>{day.icon}</p>
                                 <p><b>Temphigh:</b> {this.state.celsius ? ((day.temperatureHigh - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureHigh.toFixed() + ' °C'}</p>
                                 <p><b>Templow:</b> {this.state.celsius ? ((day.temperatureLow - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureLow.toFixed() + ' °C'}</p>
                                 <p><b>Windspeed:</b> {day.windSpeed}</p>

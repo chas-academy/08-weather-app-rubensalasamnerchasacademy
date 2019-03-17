@@ -17,6 +17,9 @@ const icons = (props) => {
         case ('clear-day'):
             icon = Sun;
             break;
+        case ('clear-night'):
+            icon = Sun;
+            break;
         case ('snow'):
             icon = Snowflake;
             break;
