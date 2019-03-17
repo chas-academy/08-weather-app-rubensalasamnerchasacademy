@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  
+  background-image: url('./assets/atmosphere-blue-sky-bright-258149.jpg');
   background-size: contain;
   background-repeat:no-repeat;
 }
@@ -14,14 +14,17 @@
 body{
   background: #eee;
 }
+
 span{
   font-size:15px;
 }
+
 a{
 text-decoration:none; 
 color: #0062cc;
 border-bottom:2px solid #0062cc;
 }
+
 .box{
   padding:60px 0px;
 }
@@ -31,50 +34,25 @@ border-bottom:2px solid #0062cc;
   border-radius:0;
   padding:60px 10px;
   margin:30px 0px;
-  background: #DD5E89;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #F7BB97, #DD5E89);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #F7BB97, #DD5E89); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
   background-size: cover;
+  background: #00676d;
 }
 
 .card {
   background: #0000;
   border: 0;
 }
+
 .text{
   margin:20px 0px;
-}
-
-.title {
- /*  color: white; */
 }
 
 .fa{
    color:#4183D7;
 }
 
-.weatherBg {
-  
-}
-
-.mainweatherbg {
-  background: #1CD8D2;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #93EDC7, #1CD8D2);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #93EDC7, #1CD8D2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-.mainweather {
-  /* width: 20% */
-
-}
-
 .gridcontainer {
-  display: inline-grid;
-  grid-template-columns: 95px 95px 95px 95px 95px 95px 95px 95px;
-  grid-template-rows: auto;
-  background: #0000002b;
-  border-radius: 2px;
+  background: #0000002b;  
 }
 
 .dailycardcontainer {
@@ -91,62 +69,116 @@ border-bottom:2px solid #0062cc;
   grid-template-columns: 50px 500px
 }
 
-/* .active-pink-2 input[type=text]:focus:not([readonly]) {
-  border-bottom: 1px solid #f48fb1;
-  box-shadow: 0 1px 0 0 #f48fb1;
-  }
-  .active-pink input[type=text] {
-  border-bottom: 1px solid #f48fb1;
-  box-shadow: 0 1px 0 0 #f48fb1;
-  } */
-
-  .searchbar {
+.searchbar {
     display: flex;
   }
 
-  .testing {
-    flex-shrink: 10;
-  }
-
-  .form-control {
-    width: 20%;
-    background-color: #0000;
-  }
-
-
-  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: red;
-    opacity: 1; /* Firefox */
-  }
-
-  .navbar {
-    display:inline-block;
-    color: white;
-  }
-
-  .dailyforecast {
-   
-  }
-
-  .dailyforecasttext {
-    color: red;
-    float: left;
-  }
-
-  .weeklyforecast {
-    color: red;
-    float: left;
-  }
-
-  .weeklycontainer {
-    clear: both;
-  }
   
-  @media only screen and (max-width: 480px) {
-    /* STYLES HERE for BROWSER WINDOWS with a max-width of 480px. 
-       This will work on desktops when the window is narrowed.  */
+
+.form-control {
+  width: 20%;
+  background-color: #0000;
 }
 
-.hellomaybe {
-  display: grid;
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: red;
+  opacity: 1; /* Firefox */
 }
+
+.navbar {
+  display:inline-block;
+  color: white;
+  height: 150px;
+  margin-top: 40px;
+}
+
+.dailyforecast {
+  
+}
+
+.dailyforecasttext {
+  color: red;
+  float: left;
+}
+
+.weeklycontainer {
+  clear: both;
+}
+
+.flexcontainer {
+  display: flex;
+}
+
+.clear {
+  clear: both;
+}
+
+nav.nav.nav-tabs {
+  margin-left: 20px;
+}
+
+a#outertab-tab-daily {
+  color: white;
+  background: #00676d;
+}
+
+a#outertab-tab-Graph {
+  color: white;
+  background: #00676d;
+}
+
+a#outertab-tab-SavedForecasts {
+  color: white;
+  background: #00676d;
+}
+
+.maincontainer {
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  grid-template-areas: 
+  "weathermain tabsmain tabsmain tabsmain";
+}
+
+.weathermain {
+  grid-area: weathermain;
+}
+
+.tabsmain {
+  grid-area: tabsmain; 
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 956px) {
+  /* STYLES HERE for BROWSER WINDOWS with a max-width of 480px. 
+     This will work on desktops when the window is narrowed.  */
+  .form-control {
+  width: 100%;
+  background-color: #0000;
+  }
+
+  .weathermain {
+    float: none;
+    margin: 0 auto;
+  }
+
+  .maincontainer {
+    
+    grid-template-areas: 
+    "weathermain"
+    "tabsmain";
+  }
+
+  .App {
+    background-size: auto;
+  }
+
+
+}
+
+@media only screen and (max-width: 550px) {
+  a#outertab-tab-Graph {
+    display: none;
+  }
+}
+

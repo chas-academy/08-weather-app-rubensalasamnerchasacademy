@@ -159,16 +159,19 @@ export default class weather extends Component {
         const tabs = (
             <Tabs defaultActiveKey="daily" id="outertab"  >
                 <Tab eventKey="daily" title="TODAY">
-                <Dailysummary hourly={this.state}></Dailysummary>
+                <Weather3hour hourly={this.state}></Weather3hour>
                 </Tab>
                 <Tab eventKey="Graph" title="GRAPH" className="graph">
                 <Chart chartdata={this.state}></Chart>
                 </Tab>
                 <Tab eventKey="SavedForecasts" title="SAVED FORECASTS"  >
                 <button className="btn btn-secondary btn-sm m-2 float-left"onClick={this.showLocalStorage}>Show Saved</button>
+                {savedSearches}
                 </Tab>
             </Tabs>
         )
+
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
         const weeklyForecast = this.state.daily.length ? (
             this.state.daily.map(day => {
@@ -221,16 +224,23 @@ export default class weather extends Component {
         
         return (
             <div>
-                <Navbar></Navbar>
-                <form onSubmit={this.startSearch}>
-                    <input name="search" type="text" ></input>
-                    <button type="submit">Search</button>
+                <form className="md-form active-pink active-pink-2 mb-3 mt-0 searchbar" onSubmit={this.startSearch}>
+                    <input className="form-control testing" name="search" type="text" placeholder="Location .." aria-label="Search" autoComplete="off"></input>
+                    <button className="btn btn-primary btn-sm" type="submit">Search</button>
                 </form>
-                {tabs}
-                <Mainweather daily={this.state.searchsummary} geodaily={this.state.locationsummary}></Mainweather>
-                <button onClick={this.convert}>convert temp</button>
-                <Dailyweather hourly={this.state}></Dailyweather>
-                <div className="container"><div className="row">{weeklyForecast}</div></div>
+                <div>
+                    <div className="maincontainer">
+                            <div className="weathermain">
+                                <Mainweather daily={this.state.searchsummary} geodaily={this.state.locationsummary}></Mainweather>
+                                <button className="btn btn-primary btn-sm"onClick={this.saveToLocalStorage}>Save</button> 
+                            </div>
+                            <div className="tabsmain ">
+                                {tabs}
+                            </div>
+                    </div>
+                </div>
+                <h1 className="weeklyforecast text-light">Weekly Forecast</h1><button className="btn btn-secondary btn-sm"onClick={this.convert}>Celsius</button>
+                <div className="container weeklycontainer"><div className="row justify-content-md-center">{weeklyForecast}</div></div>
             </div>
         )
     }

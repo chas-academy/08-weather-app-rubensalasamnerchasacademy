@@ -1,6 +1,6 @@
 import React from 'react';
 import Icons from './icons';
-import Tab from './tabs';
+
 
 function dailysummary ({hourly}) {
     const geohourly = hourly.geohourly;
