@@ -3,6 +3,10 @@ import Navbar from './navbar';
 import Icons from './icons';
 import Dailyweather from './dailyweather';
 import Mainweather from './mainweather';
+import Chart from './chart';
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
+import Dailysummary from './dailysummary';
 
 export default class weather extends Component {
 
@@ -29,6 +33,7 @@ export default class weather extends Component {
         tempconverter: 'Fahrenheit',
         celsius: false,
         searchstring: '',
+        allKeys: {},
         
     }
 
@@ -40,7 +45,7 @@ export default class weather extends Component {
     }
 
     currentPosition = (currentPosition) => {
-        fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/1a2dd2744632799c9381abfafde3d1bc/${currentPosition.coords.latitude},${currentPosition.coords.longitude}?units=si`)
+        fetch(`https://but-of-cors.herokuapp.com/https://api.darksky.net/forecast/1a2dd2744632799c9381abfafde3d1bc/${currentPosition.coords.latitude},${currentPosition.coords.longitude}?units=si`)
         .then(res => res.json())
         .then(data => {
             
@@ -99,7 +104,45 @@ export default class weather extends Component {
             tempconverter: !this.state.tempconverter
         })
     }
+
+    saveToLocalStorage = () => {
+        localStorage.setItem(this.state.searchstring, JSON.stringify(this.state))
+        console.log(this.state.geohourly);
+    }
+
+    showLocalStorage = () => {
+
+       
+        let holder = {}; 
+        for (let i = 0; i < localStorage.length; i++) {
+           
+           holder[localStorage.key(i)] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+          
+        }
+        this.setState({
+            allKeys: holder,
+        })
+        
+        console.log(holder);
+       
+    }
+
+
     render() {
+
+        const tabs = (
+            <Tabs defaultActiveKey="daily" id="outertab"  >
+                <Tab eventKey="daily" title="TODAY">
+                <Dailysummary hourly={this.state}></Dailysummary>
+                </Tab>
+                <Tab eventKey="Graph" title="GRAPH" className="graph">
+                <Chart chartdata={this.state}></Chart>
+                </Tab>
+                <Tab eventKey="SavedForecasts" title="SAVED FORECASTS"  >
+                <button className="btn btn-secondary btn-sm m-2 float-left"onClick={this.showLocalStorage}>Show Saved</button>
+                </Tab>
+            </Tabs>
+        )
         const weatherData = this.state.daily.length ? (
             this.state.daily.map(day => {
                 return (
@@ -179,6 +222,7 @@ export default class weather extends Component {
                     <input name="search" type="text" ></input>
                     <button type="submit">Search</button>
                 </form>
+                {tabs}
                 <Mainweather daily={this.state.searchsummary} geodaily={this.state.locationsummary}></Mainweather>
                 <button onClick={this.convert}>convert temp</button>
                 <Dailyweather hourly={this.state}></Dailyweather>
