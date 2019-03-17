@@ -156,10 +156,27 @@ export default class weather extends Component {
 
     render() {
 
+        let allSearchedKeys = [];
+        
+        Object.keys(this.state.allKeys).forEach(function(key) {
+            allSearchedKeys.push(key);
+        });
+     
+        const savedSearches = allSearchedKeys.length ? (allSearchedKeys.map(item => {
+            return(
+                <div className="flexcontainer clear">
+                    <h3 className="text-light m-2">{item.charAt(0).toUpperCase() + item.slice(1)}</h3><button id={item} onClick={this.showSavedForecast} className="btn btn-primary btn-sm m-2">Show Forecast</button>
+                </div>
+            )
+        })   
+        ) : (
+            null
+        )
+
         const tabs = (
             <Tabs defaultActiveKey="daily" id="outertab"  >
                 <Tab eventKey="daily" title="TODAY">
-                <Weather3hour hourly={this.state}></Weather3hour>
+                <Dailysummary hourly={this.state}></Dailysummary>
                 </Tab>
                 <Tab eventKey="Graph" title="GRAPH" className="graph">
                 <Chart chartdata={this.state}></Chart>
