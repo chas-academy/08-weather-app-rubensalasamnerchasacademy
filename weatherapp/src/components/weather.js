@@ -7,6 +7,8 @@ import Chart from './chart';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Dailysummary from './dailysummary';
+import Sunrise from '../assets/icons/Sunrisewhite.png';
+import Sunset from '../assets/icons/Sunsetwhite.png';
 
 const darkSkyUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/';
 const darkSkyKey = '1a2dd2744632799c9381abfafde3d1bc';
@@ -167,34 +169,25 @@ export default class weather extends Component {
                 </Tab>
             </Tabs>
         )
-        const weatherData = this.state.daily.length ? (
+
+        const weeklyForecast = this.state.daily.length ? (
             this.state.daily.map(day => {
                 return (
-                    <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        
+                    <div className="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         <div className="box-part text-center">
-                            <img src=""></img>
                             <i className="fa fa-3x" aria-hidden="true"><Icons icon={day.icon}></Icons></i>
-                            
                             <div className="title">
-                            {day.summary}
                             </div>
-                            
-                            <div className="text">
+                             <div className="text">
                                 <Icons icon={day.icon}></Icons>
                                 <p>{day.icon}</p>
-                                <p>Windspeed:{day.windSpeed}</p>
-                                <p>Humidity: {day.humidity}</p>
-                                <p>Sunrise:{new Date(day.sunriseTime * 1000).toLocaleString('it-IT')}</p>
-                                <p>Sunset:{new Date(day.sunsetTime * 1000).toLocaleString('it-IT')}</p> 
-                               {/*  <p>Sunrise:{day.sunriseTime}</p>
-                                <p>Sunset:{day.sunsetTime}</p> */}
-                                <p>Temphigh: {this.state.celsius ? ((day.temperatureHigh - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureHigh.toFixed() + ' °C'}</p>
-                                <p>Templow: {day.temperatureLow}</p>
+                                <p><b>Temphigh:</b> {this.state.celsius ? ((day.temperatureHigh - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureHigh.toFixed() + ' °C'}</p>
+                                <p><b>Templow:</b> {this.state.celsius ? ((day.temperatureLow - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureLow.toFixed() + ' °C'}</p>
+                                <p><b>Windspeed:</b> {day.windSpeed}</p>
+                                <p><b>Humidity:</b> {day.humidity}</p>
+                                <p><img src={Sunrise}></img>:{new Date(day.sunriseTime * 1000).toLocaleString('en-EN').split(',')[1]}</p>
+                                <p><img src={Sunset}></img>:{new Date(day.sunsetTime * 1000).toLocaleString('en-EN').split(',')[1]}</p> 
                             </div>
-                            
-                            <a href="#"></a>
-                            
                         </div>
                     </div>	 
                 )
@@ -206,39 +199,26 @@ export default class weather extends Component {
             this.state.geodaily.map(day => {
                 return (
                 
-                    <div className="col-lg-4 col-md-4 col-sm-4 col-xs-12 weatherBg">
-                        
-                                <div className="box-part text-center">
-                                    
-                                <i className="fa fa-3x" aria-hidden="true"><Icons icon={day.icon}></Icons></i>
-                                    
-                                    <div className="title text-white">
-                                    {day.summary}
-                                    </div>
-                                    
-                                    <div className="text text-white">
-                                        <p>Windspeed:{day.windSpeed}</p>
-                                        <p>Humidity: {day.humidity}</p>
-                                        <p>Sunrise:{new Date(day.sunriseTime * 1000).toLocaleString('it-IT')}</p>
-                                        <p>Sunset:{new Date(day.sunsetTime * 1000).toLocaleString('it-IT')}</p>
-                                        <p>Sunrise:{day.sunriseTime}</p>
-                                        <p>Sunset:{day.sunsetTime}</p>
-                                        <p>Temphigh: {this.state.celsius ? ((day.temperatureHigh - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureHigh.toFixed() + ' °C'}</p>
-                                        <p>Templow: {day.temperatureLow}</p>
-                                        
-                                    </div>
-                                    
-                                    <a href="#"></a>
-                                    
-                                </div>
-                            </div>	 
-                    	
-                
-       
-                
-                )
+                    <div className="col-lg-auto col-md-4 col-sm-6 col-xs-12 ">
+                        <div className="box-part text-center text-light">
+                        <h5>{new Date(day.time * 1000).toLocaleDateString('en-EN', options).split(',')[0]}</h5>
+                            <i className="fa fa-3x" aria-hidden="true"><Icons icon={day.icon}></Icons></i>
+                            <div className="title text-light">
+                        </div>
+                        <div className="text text-light">
+                            <p><b>Temphigh:</b> {this.state.celsius ? ((day.temperatureHigh - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureHigh.toFixed() + ' °C'}</p>
+                            <p><b>Templow:</b> {this.state.celsius ? ((day.temperatureLow - 32) * 5 / 9).toFixed() + ' °F' : day.temperatureLow.toFixed() + ' °C'}</p>
+                            <p><b>Windspeed:</b> {day.windSpeed}</p>
+                            <p><b>Humidity:</b> {day.humidity}</p>
+                            <p><img src={Sunrise}></img>:{new Date(day.sunriseTime * 1000).toLocaleString('en-EN').split(',')[1]}</p>
+                            <p><img src={Sunset}></img>:{new Date(day.sunsetTime * 1000).toLocaleString('en-EN').split(',')[1]}</p>
+                        </div>
+                        </div>
+                    </div>	 
+                        )
             })
         )
+        
         return (
             <div>
                 <Navbar></Navbar>
@@ -250,7 +230,7 @@ export default class weather extends Component {
                 <Mainweather daily={this.state.searchsummary} geodaily={this.state.locationsummary}></Mainweather>
                 <button onClick={this.convert}>convert temp</button>
                 <Dailyweather hourly={this.state}></Dailyweather>
-                <div className="container"><div className="row">{weatherData}</div></div>
+                <div className="container"><div className="row">{weeklyForecast}</div></div>
             </div>
         )
     }
