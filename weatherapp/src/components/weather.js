@@ -8,7 +8,12 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import Dailysummary from './dailysummary';
 
+const darkSkyUrl = 'https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/';
+const darkSkyKey = '1a2dd2744632799c9381abfafde3d1bc';
+
 export default class weather extends Component {
+
+
 
     state = {
         geodaily: [],
@@ -30,7 +35,6 @@ export default class weather extends Component {
         threehours: [],
         locationsummary: [],
         searchsummary: [],
-        tempconverter: 'Fahrenheit',
         celsius: false,
         searchstring: '',
         allKeys: {},
@@ -45,10 +49,9 @@ export default class weather extends Component {
     }
 
     currentPosition = (currentPosition) => {
-        fetch(`https://but-of-cors.herokuapp.com/https://api.darksky.net/forecast/1a2dd2744632799c9381abfafde3d1bc/${currentPosition.coords.latitude},${currentPosition.coords.longitude}?units=si`)
+        fetch(`${darkSkyUrl}${darkSkyKey}/${currentPosition.coords.latitude},${currentPosition.coords.longitude}?units=si`)
         .then(res => res.json())
         .then(data => {
-            
             this.setState({
                 geodaily: data.daily.data,
                 geosummary: data.currently.summary,
@@ -56,36 +59,43 @@ export default class weather extends Component {
                 geotemp: data.currently.temperature,
                 geotimezone: data.timezone,
                 geohourly: data.hourly.data,
-                locationsummary: [data.currently.summary, data.currently.temperature, data.timezone, data.currently.icon],
+                locationsummary: [data.currently.summary, data.currently.temperature, data.timezone, data.currently.icon, data.currently.time],
+
                 
             })
-            console.log(this.state);
         })
-        
-        
     }
 
     startSearch = (e) => {
         
         e.preventDefault();
-        console.log("hej");
-        const searchString = e.target.elements.search.value;
-        e.preventDefault();
+        
+        let searchString = e.target.elements.search.value == null ? (
+            e
+        ) : (
+             e.target.elements.search.value
+        )
+        
         fetch(`https://www.meteoblue.com/en/server/search/query3?query=${searchString}`)
-        .then(res => res.json())
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Service not available');
+            }
+        })
         .then(data => {
             this.setState({
             lat: data.results[0].lat,
             lon: data.results[0].lon,
-            
+            searchstring: searchString
           })
           const lat = this.state.lat;
           const lon = this.state.lon;
-          return fetch(`https://cors-anywhere.herokuapp.com/https://api.darksky.net/forecast/1a2dd2744632799c9381abfafde3d1bc/${lat},${lon}`)
+          return fetch(`${darkSkyUrl}${darkSkyKey}/${lat},${lon}?units=si`)
         })
         .then(res => res.json())
         .then(data => {
-          
           this.setState({
             summary: data.currently.summary,
             icon: data.currently.icon,
@@ -95,9 +105,9 @@ export default class weather extends Component {
             searchsummary: [data.timezone, data.currently.summary, data.currently.temperature, data.currently.icon],
           })
         
-        }) 
-      
-    }
+        })
+        .catch(error => console.log("Service unavailable:", error.message));
+      }
 
     convert = () => {
         this.setState({
@@ -106,13 +116,12 @@ export default class weather extends Component {
     }
 
     saveToLocalStorage = () => {
+
         localStorage.setItem(this.state.searchstring, JSON.stringify(this.state))
-        console.log(this.state.geohourly);
     }
 
     showLocalStorage = () => {
 
-       
         let holder = {}; 
         for (let i = 0; i < localStorage.length; i++) {
            
@@ -122,9 +131,19 @@ export default class weather extends Component {
         this.setState({
             allKeys: holder,
         })
+    }
+
+    // Not currently working
+    showSavedForecast = (e) => {
         
-        console.log(holder);
-       
+        console.log(e.target.id)
+        this.startSearch(e)
+        for (Object.keys in this.state.allKeys) {
+            if(Object.keys === e.target.id) {
+                console.log(Object.keys);
+            }
+        }
+        
     }
 
 
