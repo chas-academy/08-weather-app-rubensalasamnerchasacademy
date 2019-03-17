@@ -109,9 +109,14 @@ export default class weather extends Component {
         .catch(error => console.log("Service unavailable:", error.message));
       }
 
-    convert = () => {
+    convert = (e) => {
+        if (e.target.innerHTML === "Celsius") {
+            e.target.innerHTML = 'Fahrenheit';
+        } else {
+            e.target.innerHTML = 'Celsius'
+        }
         this.setState({
-            tempconverter: !this.state.tempconverter
+            celsius: !this.state.celsius
         })
     }
 

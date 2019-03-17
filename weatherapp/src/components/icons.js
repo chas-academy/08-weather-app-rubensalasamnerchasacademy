@@ -6,7 +6,8 @@ import CloudSun from '../assets/icons/CloudSun.svg';
 import CloudRain from '../assets/icons/CloudRain.svg';
 import CloudMoon from '../assets/icons/CloudMoon.svg';
 import CloudFog from '../assets/icons/CloudFog.svg';
-
+import Cloud from '../assets/icons/Cloudwhite.png';
+import Fog from '../assets/icons/Cloudfogwhitey.png';
 
 
 const icons = (props) => {
@@ -33,6 +34,12 @@ const icons = (props) => {
             break;
         case ('cloud-Fog'):
             icon = CloudFog;
+            break;
+        case ('cloudy'):
+            icon = Cloud;
+            break;
+        case ('fog'):
+            icon = Fog;
             break;
     }
 
