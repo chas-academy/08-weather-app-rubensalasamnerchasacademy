@@ -1,3 +1,3 @@
 ﻿# 08-weather-app-rubensalasamnerchasacademy
 
-https://github.com/chas-academy/08-weather-app-rubensalasamnerchasacademy.git
+https://weatherapprubensalas08-k3l9uzwt5.now.sh/
